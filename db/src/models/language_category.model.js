@@ -4,6 +4,10 @@ const Language_category = new mongoose.Schema({
     language: {
         type: String,
     },
+    status: {
+        type: Number,
+        default: 0
+    },
     createAt: {
         type: Date,
         immutable: true,
@@ -16,6 +20,10 @@ const Language_category = new mongoose.Schema({
         default: () => {
             return Date.now();
         }
+    },
+    deletedAt: {
+        type: String,
+        default: 0,
     }
 });
 
