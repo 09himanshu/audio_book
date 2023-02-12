@@ -8,13 +8,13 @@ const logDirectory = path.join(process.cwd(), 'logs');
 if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory);
 
 // Log fuction
-const logEvent = (event, user, endpoint, level = 'info') => {
-    const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-    const logMessage = `[${timestamp}][${level}][User: ${user}][Endpoint: ${endpoint}] ${event}\n`;
+const logEvent = (event, user, endpoint, request_time, level = 'info') => {
+  const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
+  const logMessage = `[${timestamp}] [${level}] [User: ${user}] [Time to takes execute: ${request_time}ms] [Endpoint: ${endpoint}] ${event}\n`;
   
-    const logFile = path.join(logDirectory, `${moment().format('YYYY-MM-DD')}.log`);
+  const logFile = path.join(logDirectory, `${moment().format('YYYY-MM-DD')}.log`);
   
-    fs.appendFileSync(logFile, logMessage, 'utf8');
+  fs.appendFileSync(logFile, logMessage, 'utf8');
 };
 
 // Function to delete old logs
