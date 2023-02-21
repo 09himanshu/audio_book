@@ -9,7 +9,7 @@ const language_ = async (req, res) => {
 
         res.status(201).send({status: true, message: `success`.toUpperCase(), data: data});
     } catch (err) {
-        console.log(err.message);
+        console.log(err);
         res.status(500).send({status: false, message: `failure`.toUpperCase(), data: `Some error occur ${err.message}`});
     }
 }
