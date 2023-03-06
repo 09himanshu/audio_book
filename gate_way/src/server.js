@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import {server_env}  from './config/system.config.js';
 import {deleteOldLogs,logEvent} from './utils/audit_log.utils.js';
 import language from './routes/language.routes.js';
+import auth from './routes/auth.routes.js';
 
 main();
 
@@ -22,6 +23,7 @@ async function main() {
 
     // routes
     language(app);
+    auth(app);
 
     start(app,env);
 }

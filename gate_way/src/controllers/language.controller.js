@@ -1,17 +1,33 @@
-import {insert} from '../dbServices/common.services.js';
-import {collections} from '../utils/constant.utils.js'
+import * as Function from '../dbServices/common.services.js';
+import {collections} from '../utils/constant.utils.js';
+
 
 const language_ = async (req, res) => {
     let body = req.body;
     try {
-        let data = await insert(collections.LANGUAGE, body);
-        console.log(data);
+        const hrstart = process.hrtime();
+        let data = await Function.insert(collections.LANGUAGE, body);
 
-        res.status(201).send({status: true, message: `success`.toUpperCase(), data: data});
+        const hrend = process.hrtime(hrstart); 
+        global.$log('post', '', req.url, `${hrend[1]/1000000}`);
+        res.status(201).send({data: data});
     } catch (err) {
         console.log(err);
         res.status(500).send({status: false, message: `failure`.toUpperCase(), data: `Some error occur ${err.message}`});
     }
 }
 
-export {language_}
+const get_list_language = async (req, res) => {
+    try {
+        const hrstart = process.hrtime();
+        let data = await Function.get_all(collections.LANGUAGE);
+        const hrend = process.hrtime(hrstart); 
+        global.$log('get', '', req.url, `${hrend[1]/1000000}`);
+        res.status(200).send(data);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({status: false, message: 'failure'.toUpperCase(), data: `Internal server error occur ${err.message}`});
+    }
+}
+
+export {language_,get_list_language}

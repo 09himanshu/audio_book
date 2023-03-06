@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import * as Model from '../models/index.js';
 import {errorMessage, successMessage} from '../utils/return_err_messgae.js'
-
 class DB {
     #db_name;
     #connection_names = [];
@@ -26,13 +25,11 @@ class DB {
         });
     }
 
-    async find(collection, filter, projection) {
+    async find(collection, filter, projection = null, optionals) {
         try {
             await this._ensureConnection();
 
-            if(!this.#connection_names.includes(collection)) return {status: false, message: 'failure'.toUpperCase(), data: `Invalid collections name`};
-
-            const data = await Model[collection].find(filter || {}, projection || {});
+            const data = await Model[collection].find({...filter} || {}, projection || {}).skip(optionals.skip).limit(optionals.limit).sort(optionals.sort);
             return await successMessage(data);
         } catch (err) {
             return await errorMessage(err);
