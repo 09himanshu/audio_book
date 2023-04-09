@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
+import morgan from 'morgan';
 
 import {server_env}  from './config/system.config.js';
 import {deleteOldLogs,logEvent} from './utils/audit_log.utils.js';
@@ -14,6 +15,7 @@ async function main() {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(helmet());
+    app.use(morgan('dev'));
 
     const env = server_env;
 

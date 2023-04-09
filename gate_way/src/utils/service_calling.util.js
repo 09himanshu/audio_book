@@ -13,9 +13,9 @@ async function call_api(url, headers = null, method = null, body = null) {
         call_options["body"] = JSON.stringify(body);
     }
     try {
-        console.log(`***** ${call_options.method?.toUpperCase() || "GET"} : ${url} *****`)
-        console.log(`Request headers: ${JSON.stringify(call_options.headers) || "No headers"}`)
-        console.log(`Request body: ${JSON.stringify(call_options.body) || "No body"}`)
+        // console.log(`***** ${call_options.method?.toUpperCase() || "GET"} : ${url} *****`)
+        // console.log(`Request headers: ${JSON.stringify(call_options.headers) || "No headers"}`)
+        // console.log(`Request body: ${JSON.stringify(call_options.body) || "No body"}`)
 
         const response = await fetch(url, call_options);
         const data = await response.json();

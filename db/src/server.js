@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
 
 import {server_env} from './config/system.config.js';
 import all_types_data from './routes/all_type.routes.js';
@@ -13,6 +14,7 @@ async function main() {
     const app = express();
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
+    app.use(morgan('dev'));
 
     // =========>>>>>>>> Audit Log 
     global.$log = logEvent;

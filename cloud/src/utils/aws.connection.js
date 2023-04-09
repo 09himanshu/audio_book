@@ -18,15 +18,15 @@ const publish = async (message, phoneNumber) => {
             PhoneNumber: phoneNumber,
         }).promise();
 
-        let data = await sns.subscribe({
-            Protocol: 'sms',
-            TopicArn: 'arn:aws:sns:ap-south-1:179154069528:my_sns_service',
-            Endpoint: '+918420400540'
-        }).promise();
+        // let data = await sns.subscribe({
+        //     Protocol: 'sms',
+        //     TopicArn: 'arn:aws:sns:ap-south-1:179154069528:my_sns_service',
+        //     Endpoint: '+918420400540'
+        // }).promise();
         // console.log(data);
 
-        // await sns.getSMSAttributes({attributes: ['DeliveryStatusIAMRole']}).promise();
-
+        await sns.getSMSAttributes({attributes: ['DeliveryStatusIAMRole']}).promise();
+        // console.log(getsmsAt);
         return receive_data;
     } catch (err) {
         console.log(err.message);

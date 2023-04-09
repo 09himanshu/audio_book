@@ -10,7 +10,7 @@ if (!fs.existsSync(logDirectory)) fs.mkdirSync(logDirectory);
 // Log fuction
 const logEvent = (event, user, endpoint, request_time, level = 'info') => {
   const timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
-  const logMessage = `[${timestamp}] [${level}] [User: ${user}] [Time to takes execute: ${request_time}ms] [Endpoint: ${endpoint}] ${event}\n`;
+  const logMessage = `[${timestamp}] [${level}] [User: ${user}] [Time to execute api: ${request_time}ms] [Endpoint: ${endpoint}] ${event}\n`;
   
   const logFile = path.join(logDirectory, `${moment().format('YYYY-MM-DD')}.log`);
   

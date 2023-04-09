@@ -19,17 +19,41 @@ const insert = async (collection, obj) => {
 }
 
 const get_all = async (collection) => {
+    let url;
     try {
-        let url;
         (process.env.NODE_ENV == 'production') ? url = `${server_env.http}${server_env.host}:${server_env.db_service_port}/api/v1/audio_book/${collection}`: 
         url = `${server_env.http}${server_env.host}:${server_env.db_service_port}/api/v1/audio_book/${collection}`;
 
-        try {
-            let data = await call_api(url,null);
-            return data;
-        } catch (err) {
-            console.log(err.message);
-        }
+        let data = await call_api(url,null);
+        return data;
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+const findAll = async ({collection, queryFilter}) => {
+    let url;
+
+    try {
+        (process.env.NODE_ENV == 'production') ? url = `${server_env.http}${server_env.host}:${server_env.db_service_port}/api/v1/audio_book/${collection}?${queryFilter}` : 
+        url = `${server_env.http}${server_env.host}:${server_env.db_service_port}/api/v1/audio_book/${collection}?${queryFilter}`;
+
+        let data = await call_api(url);
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const updateOne = async ({collection, queryFilter, document}) => {
+    let url;
+    try {
+        (process.env.NODE_ENV == 'production') ? url = `${server_env.http}${server_env.host}:${server_env.db_service_port}/api/v1/audio_book/${collection}?${queryFilter}` :
+        url = `${server_env.http}${server_env.host}:${server_env.db_service_port}/api/v1/audio_book/${collection}?${queryFilter}`
+
+        let data = await call_api(url, headers, 'put', document);
+        return data;
+
     } catch (err) {
         console.log(err);
     }
@@ -45,7 +69,7 @@ const publish_sms = async (body) => {
     }
 }
 
-export {insert,get_all, publish_sms};
+export {insert,get_all, publish_sms, findAll, updateOne};
 
 
 
